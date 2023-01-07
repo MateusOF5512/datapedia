@@ -8,3 +8,4 @@ wordcloud==1.8.2.2
 Pillow==9.0.0
 streamlit-aggrid==0.3.3
 pandas-profiling==3.6.2
+streamlit-pandas-profiling==0.1.3
