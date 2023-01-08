@@ -1,10 +1,4 @@
 # Importação de Bibliotecas:
-import streamlit as st
-from outros.variaveis_folha import *
-from st_aggrid import AgGrid
-from st_aggrid.grid_options_builder import GridOptionsBuilder
-from st_aggrid.shared import GridUpdateMode
-from PIL import Image
 
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
@@ -12,10 +6,6 @@ from streamlit_pandas_profiling import st_profile_report
 from plots.ideb_brasil import *
 
 
-
-def rodape1():
-    st.markdown(html_rodape1, unsafe_allow_html=True)
-    return None
 
 
 config={"displayModeBar": True,
@@ -25,9 +15,9 @@ config={"displayModeBar": True,
                                    'hoverClosestCartesian', 'hoverCompareCartesian']}
 
 
-def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
-
-    with tab1A:
+def ideb_brasil(df, df_limpo, ideb_analise):
+    if ideb_analise == "📊 Dashboard":
+        st.text("")
         col1, col2, col3 = st.columns([20, 1, 20])
         with col1:
             with st.expander("⚙️ Configurar Dados"):
@@ -46,6 +36,8 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
         with col3:
             with st.expander("⚙️ Configurar Dashbords"):
                 st.text("opee")
+
+        st.markdown('---')
 
         var1 = 'taxa_aprovacao'
 
@@ -73,7 +65,7 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
                         unsafe_allow_html=True)
             st.plotly_chart(fig_linha_rede, use_container_width=True)
 
-
+        st.markdown('---')
 
         col1, col2, col3 = st.columns([20, 1, 20])
         with col1:
@@ -89,6 +81,8 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
                         unsafe_allow_html=True)
             st.plotly_chart(fig_linha_ensino, use_container_width=True)
 
+        st.markdown('---')
+
         col1, col2, col3 = st.columns([20, 1, 20])
         with col1:
             st.markdown("<h3 style='font-size:150%; text-align: center; color: #5B51D8; padding: 10px 10px;'" +
@@ -103,8 +97,10 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
                         unsafe_allow_html=True)
             agg_tabela(df_limpo, use_checkbox=False)
 
+        st.markdown('---')
 
-    with tab2A:
+
+    elif ideb_analise == "‍🔬 Laboratório":
         st.markdown("<h1 style='font-size:200%; text-align: center; color: #5B51D8; padding: 0px 0px;'" +
                     ">Tabela Interativa e Dinâmica</h1>",
                     unsafe_allow_html=True)
@@ -167,6 +163,7 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
                 df_bolha = df_bolha.to_csv(index=False).encode('utf-8')
                 st.download_button(label="Download Dados", data=df_bolha,
                                    file_name="DataApp.csv", mime='text/csv')
+            st.markdown('---')
 
 
             # GRÁFICO DE BARRA ´ANÁLISE COMPARATIVA - PARTE 2 ------------------------------------------------
@@ -213,6 +210,7 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
                 df_barra = df_barra.to_csv(index=False).encode('utf-8')
                 st.download_button(label="Download Dados", data=df_barra,
                                    file_name="DataApp.csv", mime='text/csv')
+            st.markdown('---')
 
 
             # GRÁFICO DE LINHA - ANÁLSIE TEMPORAL - PARTE 3 ----------------------------------------
@@ -258,15 +256,14 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
                 df_linha = df_linha.to_csv(index=False).encode('utf-8')
                 st.download_button(label="Download Dados", data=df_linha,
                                    file_name="DataApp.csv", mime='text/csv')
+            st.markdown('---')
 
         elif len(selected_rows) != 0:
             st.text("oi")
 
 
 
-    with tab3A:
-        st.markdown("oie3")
-
+    elif ideb_analise == "‍🔎 Relatórios":
         report = st.checkbox("Carregar Relatório dos Dados 🔎")
 
         if report:
@@ -276,11 +273,11 @@ def ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A):
     return None
 
 
-def ideb_escolas(df_escolas, tab1A, tab2A, tab3A):
-    with tab1A:
+def ideb_escolas(df_escolas, ideb_analise):
+    if ideb_analise == "📊 Dashboard":
         st.dataframe(df_escolas)
 
-    with tab2A:
+    elif ideb_analise == "‍🔬 Laboratório":
         st.markdown("<h1 style='font-size:200%; text-align: center; color: #5B51D8; padding: 0px 0px;'" +
                     ">Tabela Interativa e Dinâmica</h1>",
                     unsafe_allow_html=True)
@@ -384,7 +381,7 @@ def ideb_escolas(df_escolas, tab1A, tab2A, tab3A):
                 st.download_button(label="Download Dados", data=df_barra,
                                    file_name="DataApp.csv", mime='text/csv')
 
-    with tab3A:
+    elif ideb_analise == "‍🔎 Relatórios":
         report = st.checkbox("Carregar Relatório dos Dados 🔎", key=76)
 
         if report:
