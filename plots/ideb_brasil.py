@@ -62,36 +62,64 @@ def intro():
 
 
 def ideb():
+
+    col1, col2, col3 = st.columns([20, 1, 20])
+    with col1:
+        ideb_tabela = st.radio("Selecione Tabelas da Base de Dados:",
+                               options=["Início", "Brasil", "Escolas", "Municipios e Regiões"], key=40,
+                               horizontal=True)
+    with col2:
+        st.text("")
+    with col3:
+        ideb_analise = st.radio("Selecione o Tipo da Analise:",
+                                options=["📊 Dashboard", "‍🔬 Laboratório", "🔎 Relatórios"], key=39, horizontal=True)
+
+    st.markdown('---')
     st.markdown("<h2 style='font-size:200%; text-align: center; color: #5B51D8; padding: 0px 0px;'" +
                 ">Índice de Desenvolvimento da Educação Básica - IDEB</h2>",
                 unsafe_allow_html=True)
-    st.text("")
+
+    st.markdown('---')
     st.text("")
 
+    return ideb_tabela, ideb_analise
+
+def inicio_ideb():
     col1, col2, col3 = st.columns([1, 20, 1])
     with col1:
         st.text("")
     with col2:
         st.markdown("""
-                O Índice de Desenvolvimento da Educação Básica (Ideb) foi criado em 2007 e reúne, 
-                em um só indicador, os resultados de dois conceitos igualmente importantes para a 
-                qualidade da educação: o fluxo escolar e as médias de desempenho nas avaliações.
-                 O Ideb agrega ao enfoque pedagógico dos resultados das avaliações em larga escala 
-                do Inep a possibilidade de resultados sintéticos, facilmente assimiláveis, 
-                e que permitem traçar metas de qualidade educacional para os sistemas. 
-                 """)
+                    O Índice de Desenvolvimento da Educação Básica (Ideb) foi criado em 2007 e reúne, 
+                    em um só indicador, os resultados de dois conceitos igualmente importantes para a 
+                    qualidade da educação: o fluxo escolar e as médias de desempenho nas avaliações.
+                     O Ideb agrega ao enfoque pedagógico dos resultados das avaliações em larga escala 
+                    do Inep a possibilidade de resultados sintéticos, facilmente assimiláveis, 
+                    e que permitem traçar metas de qualidade educacional para os sistemas. 
+                     """)
 
     with col3:
         st.text("")
 
-    ideb = st.radio("Tabelas da Base de Dados",
-                    options=["IDEB - Brasil", "IDEB - Escolas"], key=39, horizontal=True)
-
-    tab1A, tab2A, tab3A = st.tabs(["📊 Dashboards", "‍🔬 Laboratório", "🔎 Relatórios"])
     st.text("")
     st.text("")
 
-    return ideb, tab1A, tab2A, tab3A
+    col1, col2, col3 = st.columns([20, 1, 20])
+    with col1:
+        st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                    ">Organização:</h3>",
+                    unsafe_allow_html=True)
+        st.markdown("Instituto Nacional de Estudos e Pesquisas Educacionais (Inep)")
+    with col2:
+        st.text("")
+    with col3:
+        st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                    ">Cobertura temporal:</h3>",
+                    unsafe_allow_html=True)
+        st.markdown("2005 - 2021")
+
+    return None
+
 
 
 def bar_plot(df, var1, var2, tipo):
@@ -329,8 +357,8 @@ def linha_rede(df, var1):
 def linha_ensino(df, var1):
     df = df.groupby(['ano', 'ensino']).agg('sum').reset_index()
     x = df.groupby('ano').agg('sum').reset_index()
-    y_f1 = df[df['ensino'] == 'Fundamental 1']
-    y_f2 = df[df['ensino'] == 'Fundamental 2']
+    y_f1 = df[df['ensino'] == 'fundamental1']
+    y_f2 = df[df['ensino'] == 'fundamental2']
     y_md = df[df['ensino'] == 'Médio']
 
     figB2 = go.Figure()
