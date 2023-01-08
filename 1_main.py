@@ -4,7 +4,6 @@ from layout.layout_adh import *
 from plots.ideb_brasil import *
 from plots.plots_adh import *
 import streamlit as st
-from PIL import Image
 
 
 # CONFIGURAÇÕES DE VISUALIZAÇÃO DO STREAMLIT ----------------------------------------------
@@ -51,7 +50,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
 with tab1:
     st.text("")
     st.text("")
-    col1, col2, col3 = st.columns([1,20,1])
+    col1, col2, col3 = st.columns([1, 20, 1])
     with col1:
         st.text("")
     with col2:
@@ -70,7 +69,8 @@ with tab2:
         ideb_tabela, ideb_analise = ideb()
 
         if ideb_tabela == 'Início':
-            inicio_ideb()
+            #inicio_ideb(ideb_analise)
+            st.text("")
 
         elif ideb_tabela == 'Brasil':
             ideb_brasil(df, df_limpo, ideb_analise)
@@ -115,8 +115,11 @@ with tab6:
         if atlas_tabela == 'Início':
             inicio_atlas()
 
-        elif atlas_tabela == 'Municipio e Regiões - ADH':
+        elif atlas_tabela == 'Municípios e Regiões':
             atlas_municipio(df_atlas, atlas_analise)
+
+        elif atlas_tabela == 'Brasil':
+            st.text("Ainda pouco...")
 
 
 with tab7:
@@ -143,3 +146,7 @@ with tab10:
                              "Bolsas - Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - CAPES)",
                              "Acessos de banda larga fixa no Brasil - Anatel"])
     st.markdown("""---""")
+
+
+
+
