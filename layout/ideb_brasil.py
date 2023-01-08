@@ -263,7 +263,18 @@ def ideb_brasil(df, df_limpo, ideb_analise):
 
 
 
-    elif ideb_analise == "‍🔎 Relatórios":
+
+    elif ideb_analise == "🔎 Relatórios":
+
+
+
+        text = """Para gerar os Relatórios utilizamos o pandas-profiling, que entraga todas as ferramentas necessarias para 
+        uma análise profunda, rápida e simples dos dados. Gerando automaticamente relatórios personalizados para 
+        cada variável no conjunto de dados, com estatística, gráficos, alertas, correlações e mais. 
+        Para gerar esses Relatórios pode demorar uns segundos, dependendo da Tabela até munutos, 
+        mas a demora vale a pena pela riqueza de informações, enquanto espera leia sobre suas funcionalidades:"""
+
+        st.info(text)
         report = st.checkbox("Carregar Relatório dos Dados 🔎")
 
         if report:
@@ -381,7 +392,16 @@ def ideb_escolas(df_escolas, ideb_analise):
                 st.download_button(label="Download Dados", data=df_barra,
                                    file_name="DataApp.csv", mime='text/csv')
 
-    elif ideb_analise == "‍🔎 Relatórios":
+    elif ideb_analise == "🔎 Relatórios":
+
+        text = """Para gerar os Relatórios utilizamos o pandas-profiling, que entraga todas as ferramentas necessarias para 
+                uma análise profunda, rápida e simples dos dados. Gerando automaticamente relatórios personalizados para 
+                cada variável no conjunto de dados, com estatística, gráficos, alertas, correlações e mais. 
+                Para gerar esses Relatórios pode demorar uns segundos, dependendo da Tabela até munutos, 
+                mas a demora vale a pena pela riqueza de informações, enquanto espera leia sobre suas funcionalidades:"""
+
+        st.info(text)
+
         report = st.checkbox("Carregar Relatório dos Dados 🔎", key=76)
 
         if report:

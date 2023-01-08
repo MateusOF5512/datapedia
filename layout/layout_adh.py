@@ -13,7 +13,7 @@ config={"displayModeBar": True,
 
 
 def atlas_municipio(df_atlas, atlas_tabela):
-    if atlas_tabela == "📊 Dashboards":
+    if atlas_tabela == "📊 Dashboard":
         st.dataframe(df_atlas)
 
     elif atlas_tabela == "‍🔬 Laboratório":
@@ -121,6 +121,15 @@ def atlas_municipio(df_atlas, atlas_tabela):
                                    file_name="DataApp.csv", mime='text/csv')
 
     elif atlas_tabela == "🔎 Relatórios":
+
+        text = """Para gerar os Relatórios utilizamos o pandas-profiling, que entrega todas as ferramentas necessárias para 
+                uma análise profunda, rápida e simples dos dados. Gerando automaticamente relatórios personalizados para 
+                cada variável no conjunto de dados, com estatística, gráficos, alertas, correlações e mais. 
+                Para gerar esses Relatórios pode demorar uns segundos, dependendo da Tabela até minutos, 
+                mas a demora vale a pena pela riqueza de informações, enquanto espera leia sobre suas funcionalidades:"""
+
+        st.info(text)
+
         report = st.checkbox("Carregar Relatório dos Dados 🔎", key=76)
 
         if report:
