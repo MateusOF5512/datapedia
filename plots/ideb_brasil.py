@@ -84,39 +84,49 @@ def ideb():
 
     return ideb_tabela, ideb_analise
 
-def inicio_ideb():
-    col1, col2, col3 = st.columns([1, 20, 1])
-    with col1:
-        st.text("")
-    with col2:
-        st.markdown("""
-                    O Índice de Desenvolvimento da Educação Básica (Ideb) foi criado em 2007 e reúne, 
-                    em um só indicador, os resultados de dois conceitos igualmente importantes para a 
-                    qualidade da educação: o fluxo escolar e as médias de desempenho nas avaliações.
-                     O Ideb agrega ao enfoque pedagógico dos resultados das avaliações em larga escala 
-                    do Inep a possibilidade de resultados sintéticos, facilmente assimiláveis, 
-                    e que permitem traçar metas de qualidade educacional para os sistemas. 
-                     """)
+def inicio_ideb(ideb_analise):
+    if ideb_analise == "📊 Dashboard":
+        col1, col2, col3 = st.columns([1, 20, 1])
+        with col1:
+            st.text("")
+        with col2:
+            st.markdown("""
+                        O Índice de Desenvolvimento da Educação Básica (Ideb) foi criado em 2007 e reúne, 
+                        em um só indicador, os resultados de dois conceitos igualmente importantes para a 
+                        qualidade da educação: o fluxo escolar e as médias de desempenho nas avaliações.
+                         O Ideb agrega ao enfoque pedagógico dos resultados das avaliações em larga escala 
+                        do Inep a possibilidade de resultados sintéticos, facilmente assimiláveis, 
+                        e que permitem traçar metas de qualidade educacional para os sistemas. 
+                         """)
 
-    with col3:
+        with col3:
+            st.text("")
+
+        st.text("")
         st.text("")
 
-    st.text("")
-    st.text("")
+        col1, col2, col3 = st.columns([20, 1, 20])
+        with col1:
+            st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                        ">Organização:</h3>",
+                        unsafe_allow_html=True)
+            st.markdown("Instituto Nacional de Estudos e Pesquisas Educacionais (Inep)")
+        with col2:
+            st.text("")
+        with col3:
+            st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                        ">Cobertura temporal:</h3>",
+                        unsafe_allow_html=True)
+            st.markdown("2005 - 2021")
 
-    col1, col2, col3 = st.columns([20, 1, 20])
-    with col1:
-        st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
-                    ">Organização:</h3>",
-                    unsafe_allow_html=True)
-        st.markdown("Instituto Nacional de Estudos e Pesquisas Educacionais (Inep)")
-    with col2:
-        st.text("")
-    with col3:
-        st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
-                    ">Cobertura temporal:</h3>",
-                    unsafe_allow_html=True)
-        st.markdown("2005 - 2021")
+
+    elif ideb_analise == "‍🔬 Laboratório":
+        st.warning('Selecione uma Base de Dados acima para começar sua Analise!', icon="⚠️")
+
+    elif ideb_analise == "🔎 Relatórios":
+
+        st.warning('Selecione uma Base de Dados acima para começar sua Analise!', icon="⚠️")
+
 
     return None
 

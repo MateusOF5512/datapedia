@@ -22,14 +22,14 @@ def atlas():
 
     col1, col2, col3 = st.columns([20, 1, 20])
     with col1:
-        atlas_analise = st.radio("Tipo da analise:",
-                                 options=["📊 Dashboards", "‍🔬 Laboratório", "🔎 Relatórios"], key=36, horizontal=True)
+        atlas_tabela = st.radio("Tabelas da Base de Dados:",
+                                options=["Início", "Municípios e Regiões", "Brasil"],
+                                key=37, horizontal=True)
     with col2:
         st.text("")
     with col3:
-        atlas_tabela = st.radio("Tabelas da Base de Dados:",
-                                options=["Início", "Brasil - IDEB", "Brasil - ADH"],
-                                key=37, horizontal=True)
+        atlas_analise = st.radio("Tipo da analise:",
+                                 options=["📊 Dashboard", "‍🔬 Laboratório", "🔎 Relatórios"], key=36, horizontal=True)
     st.markdown('---')
     st.text("")
     st.text("")
