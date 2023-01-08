@@ -8,8 +8,7 @@ from PIL import Image
 
 
 # CONFIGURAÇÕES DE VISUALIZAÇÃO DO STREAMLIT ----------------------------------------------
-im = Image.open("image/instagram.png")
-st.set_page_config(page_title="AEDA", page_icon=im, layout="wide")
+st.set_page_config(page_title="AEDA", layout="wide")
 
 st.markdown(""" <style>
         footer {visibility: hidden;}
