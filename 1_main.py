@@ -1,12 +1,15 @@
 # BIBLIOTECAS USADAS
 from layout.ideb_brasil import *
+from layout.layout_adh import *
 from plots.ideb_brasil import *
+from plots.plots_adh import *
 import streamlit as st
 from PIL import Image
 
 
 # CONFIGURAÇÕES DE VISUALIZAÇÃO DO STREAMLIT ----------------------------------------------
-st.set_page_config(page_title="AEDA", layout="wide")
+im = Image.open("image/instagram.png")
+st.set_page_config(page_title="AEDA", page_icon=im, layout="wide")
 
 st.markdown(""" <style>
         footer {visibility: hidden;}
@@ -18,9 +21,12 @@ path2 = 'data/IDEB_BRASIL_TRATADO.csv'
 
 path3 = 'data/ideb-escolas.csv'
 
+path4 = 'data/ADH.csv'
+
 df = read_csv(path1)
 df_limpo = read_csv(path2)
 df_escolas = read_csv(path3)
+df_atlas = read_csv(path4)
 
 
 df_limpo = tratamento(df_limpo)
@@ -59,16 +65,22 @@ with tab2:
                             ["Índice de Desenvolvimento da Educação Básica - IDEB",
                              "Atlas do Desenvolvimento Humano (ADH)",
                              "Censo Escolar - INEP"])
-    st.markdown("""---""")
+    st.markdown('---')
     if educacao == "Índice de Desenvolvimento da Educação Básica - IDEB":
 
-        ideb, tab1A, tab2A, tab3A = ideb()
+        ideb_tabela, ideb_analise = ideb()
 
-        if ideb == 'IDEB - Brasil':
-            ideb_brasil(df, df_limpo, tab1A, tab2A, tab3A)
+        if ideb_tabela == 'Início':
+            inicio_ideb()
 
-        elif ideb == 'IDEB - Escolas':
-            ideb_escolas(df_escolas, tab1A, tab2A, tab3A)
+        elif ideb_tabela == 'Brasil':
+            ideb_brasil(df, df_limpo, ideb_analise)
+
+        elif ideb_tabela == 'Escolas':
+            ideb_escolas(df_escolas, ideb_analise)
+
+        elif ideb_tabela == 'Municipios e Regiões':
+            st.text("Ainda nada...")
 
 with tab3:
     meioambiente = st.selectbox('Selecione a Base de Dados:',
@@ -97,6 +109,16 @@ with tab6:
                                 "Relação Anual de Informações Sociais - ME",
                                 "Cadastro Geral de Empregados e Desempregados - ME"])
     st.markdown("""---""")
+    if economia == "Atlas do Desenvolvimento Humano - ONU":
+
+        atlas_tabela, atlas_analise = atlas()
+
+        if atlas_tabela == 'Início':
+            inicio_atlas()
+
+        elif atlas_tabela == 'Municipio e Regiões - ADH':
+            atlas_municipio(df_atlas, atlas_analise)
+
 
 with tab7:
     energia = st.selectbox('Selecione a Base de Dados:',
