@@ -69,8 +69,7 @@ with tab2:
         ideb_tabela, ideb_analise = ideb()
 
         if ideb_tabela == 'Início':
-            #inicio_ideb(ideb_analise)
-            st.text("")
+            inicio_ideb(ideb_analise)
 
         elif ideb_tabela == 'Brasil':
             ideb_brasil(df, df_limpo, ideb_analise)
