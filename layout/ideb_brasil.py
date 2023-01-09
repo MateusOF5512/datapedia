@@ -309,7 +309,9 @@ def ideb_escolas(df_escolas, ideb_analise):
             col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
             with col1:
                 varz = st.selectbox("Agrupamento dos dados:",
-                                    options=["ano", "sigla_uf", 'rede', 'ensino', 'anos_escolares'], index=1)
+                                    options=["ano", 'rede', 'ensino', 'anos_escolares',
+                                             "nome_microrregiao", 'nome_mesorregiao', 'nome_uf',
+                                             "nome_regiao", "capital_uf"], index=6)
             with col2:
                 df_x_bolha = df_escolas
                 varx = st.selectbox('Coluna pro Eixo X:',
@@ -320,7 +322,7 @@ def ideb_escolas(df_escolas, ideb_analise):
                                     df_y_bolha.columns.unique(), index=13, key=72)
             with col4:
                 tipo = st.radio("Formato do Eixo Y:",
-                                options=["Total", "Média"], key=73, horizontal=True)
+                                options=["Total", "Média"], key=73, horizontal=True, index=1)
 
             fig2 = plot_bolha(df_escolas, tipo, varx, vary, varz)
             st.plotly_chart(fig2, use_container_width=True)
