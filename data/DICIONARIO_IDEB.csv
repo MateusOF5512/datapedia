@@ -1,0 +1,12 @@
+COLUNAS,DESCRIÇÃO,TIPO,PERIODO
+ano,Ano,INT64,2005 - 2021
+rede,Rede Escolar,STRING,2005 - 2021
+ensino,Tipo de Ensino,STRING,2005 - 2021
+anos_escolares,Anos Escolares,STRING,2005 - 2021
+taxa_aprovacao,Taxa de Aprovação Média,FLOAT64,2005 - 2019
+indicador_rendimento,Indicador de Rendimento (P),FLOAT64,2005 - 2019
+nota_saeb_matematica,Nota SAEB - Matemática,FLOAT64,2005 - 2019
+nota_saeb_lingua_portuguesa,Nota SAEB - Língua Portuguesa,FLOAT64,2005 - 2019
+nota_saeb_media_padronizada,Nota SAEB - Média Padronizada (N),FLOAT64,2005 - 2019
+ideb,IDEB (N x P),FLOAT64,2005 - 2019
+projecao,Projeção,FLOAT64,2007 - 2021
