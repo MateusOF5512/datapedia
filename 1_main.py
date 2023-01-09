@@ -21,11 +21,23 @@ path3 = 'data/ideb-escolas.csv'
 
 path4 = 'data/ADH.csv'
 
+path5 = 'data/municipios.csv'
+
+path6 = 'data/DICIONARIO_IDEB.csv'
+
 df = read_csv(path1)
 df_limpo = read_csv(path2)
 df_escolas = read_csv(path3)
 df_atlas = read_csv(path4)
+df_municipios = read_csv(path5)
 
+df_dic_ideb = read_csv(path6)
+
+
+df_municipios = df_municipios[['id_municipio', 'nome', 'nome_microrregiao', 'nome_mesorregiao',
+                               'nome_uf', 'nome_regiao', 'capital_uf']]
+
+df_escolas = pd.merge(df_escolas, df_municipios, how='inner', on='id_municipio')
 
 df_limpo = tratamento(df_limpo)
 #df_escolas_ = tratamento(df_escolas)
@@ -43,7 +55,7 @@ st.text("")
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
     "🐣 Introdução",
     "🎓 Educação", "🌱 Meio Ambiente", "👩‍🌾 Agropecuária",
-    "🏳️‍🌈 Diversidade e Inclusão", "💲 Economia", "⚡️Energia",
+    "🏳️‍🌈 Diversidade e Inclusão", "💲 Economia", "⚡️Geografia",
     "⚽️Esportes", "Governo", "👩‍💻 Técnologia e Inovação"])
 
 
@@ -68,16 +80,16 @@ with tab2:
 
         ideb_tabela, ideb_analise = ideb()
 
-        if ideb_tabela == 'Início':
-            inicio_ideb(ideb_analise)
+        if ideb_tabela == '🎓 Início':
+            inicio_ideb(df_dic_ideb, ideb_analise)
 
-        elif ideb_tabela == 'Brasil':
+        elif ideb_tabela == '💚 Brasil':
             ideb_brasil(df, df_limpo, ideb_analise)
 
-        elif ideb_tabela == 'Escolas':
+        elif ideb_tabela == '👨‍🏫 Escolas':
             ideb_escolas(df_escolas, ideb_analise)
 
-        elif ideb_tabela == 'Municipios e Regiões':
+        elif ideb_tabela == '🌎 Regiões':
             st.text("Ainda nada...")
 
 with tab3:
@@ -122,9 +134,18 @@ with tab6:
 
 
 with tab7:
-    energia = st.selectbox('Selecione a Base de Dados:',
-                            ["Global Atlas for Renewable Energy - IRENA"])
+    geografia = st.selectbox('Selecione a Base de Dados:',
+                            ["Diretórios Brasileiros"])
     st.markdown("""---""")
+    if geografia == "Diretórios Brasileiros":
+        municipios_tabela, municipios_analise = municipios()
+        if municipios_tabela == 'Início':
+            inicio_municipios(municipios_analise)
+        elif municipios_tabela == 'Municípios':
+            agg_tabela(df_municipios, use_checkbox=False)
+
+
+
 
 with tab8:
     esportes = st.selectbox('Selecione a Base de Dados:',
@@ -148,4 +169,4 @@ with tab10:
 
 
 
-
+rodape()
