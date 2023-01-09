@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from wordcloud import STOPWORDS
-
+from PIL import Image
 
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
@@ -65,8 +65,8 @@ def ideb():
 
     col1, col2, col3 = st.columns([20, 1, 20])
     with col1:
-        ideb_tabela = st.radio("Selecione Tabelas da Base de Dados:",
-                               options=["Início", "Brasil", "Escolas", "Municipios e Regiões"], key=40,
+        ideb_tabela = st.radio("Selecione uma Tabelas para Analise:",
+                               options=["🎓 Início", "👨‍🏫 Escolas", "🌎 Regiões", "💚 Brasil"], key=40,
                                horizontal=True)
     with col2:
         st.text("")
@@ -84,19 +84,108 @@ def ideb():
 
     return ideb_tabela, ideb_analise
 
-def inicio_ideb(ideb_analise):
+def inicio_ideb(df_dic_ideb, ideb_analise):
     if ideb_analise == "📊 Dashboard":
+
+
+        col1, col2, col3 = st.columns([15, 2, 20])
+        with col1:
+            image = Image.open('image/inep.jpg')
+            st.image(image)
+
+        with col2:
+            st.text("")
+        with col3:
+            st.text("")
+            st.markdown("""
+                        O Índice de Desenvolvimento da Educação Básica (Ideb) foi criado em 2007 e reúne, 
+                        em um só indicador, os resultados de dois conceitos igualmente importantes para a 
+                        qualidade da educação: o fluxo escolar e as médias de desempenho nas avaliações.
+                        O Ideb agrega ao enfoque pedagógico dos resultados das avaliações em larga escala 
+                        do Inep a possibilidade de resultados sintéticos, facilmente assimiláveis, 
+                        e que permitem traçar metas de qualidade educacional para os sistemas.""")
+
+        st.markdown("---")
+
+        col1, col2, col3 = st.columns([15, 2, 20])
+        with col1:
+            st.markdown("<h3 style='font-size:120%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                        ">Organização:</h3>",
+                        unsafe_allow_html=True)
+            st.markdown("Instituto Nacional de Estudos e Pesquisas Educacionais (Inep)")
+
+            st.markdown("<h3 style='font-size:120%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                        ">Cobertura temporal:</h3>",
+                        unsafe_allow_html=True)
+            st.markdown("2005 - 2021")
+
+            st.markdown("<h3 style='font-size:120%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                        ">Frequência de atualização:</h3>",
+                        unsafe_allow_html=True)
+            st.markdown("2 anos")
+
+            st.markdown("<h3 style='font-size:120%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
+                        ">Base de dados:</h3>",
+                        unsafe_allow_html=True)
+            st.write(
+                "Original - [INEP](https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb)<br> "
+                "Tratado - [Base do Dados](https://basedosdados.org/dataset/br-inep-ideb?bdm_table=brasil)",
+                        unsafe_allow_html=True)
+
+
+        with col2:
+            st.text("")
+        with col3:
+            st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px 10px 0px;'" +
+                        ">Dicionário dos Dados:</h3>",
+                        unsafe_allow_html=True)
+            agg_tabela_simpes(df_dic_ideb)
+
+
+
+
+    elif ideb_analise == "‍🔬 Laboratório":
+        st.warning('Selecione uma Base de Dados acima para começar sua Analise!', icon="⚠️")
+
+    elif ideb_analise == "🔎 Relatórios":
+
+        st.warning('Selecione uma Base de Dados acima para começar sua Analise!', icon="⚠️")
+
+
+    return None
+
+
+def municipios():
+    col1, col2, col3 = st.columns([20, 1, 20])
+    with col1:
+        municipios_tabela = st.radio("Selecione Tabelas da Base de Dados:",
+                               options=["Início", "Municípios"], key=90, horizontal=True)
+    with col2:
+        st.text("")
+    with col3:
+        municipios_analise = st.radio("Selecione o Tipo da Analise:",
+                                options=["📊 Dashboard", "‍🔬 Laboratório", "🔎 Relatórios"], key=99, horizontal=True)
+
+    st.markdown('---')
+    st.markdown("<h2 style='font-size:200%; text-align: center; color: #5B51D8; padding: 0px 0px;'" +
+                ">"+municipios_tabela+" - Diretórios Brasileiros</h2>",
+                unsafe_allow_html=True)
+
+    st.markdown('---')
+    st.text("")
+
+
+    return municipios_tabela, municipios_analise
+
+def inicio_municipios(municipios_analise):
+
+    if municipios_analise == "📊 Dashboard":
         col1, col2, col3 = st.columns([1, 20, 1])
         with col1:
             st.text("")
         with col2:
             st.markdown("""
-                        O Índice de Desenvolvimento da Educação Básica (Ideb) foi criado em 2007 e reúne, 
-                        em um só indicador, os resultados de dois conceitos igualmente importantes para a 
-                        qualidade da educação: o fluxo escolar e as médias de desempenho nas avaliações.
-                         O Ideb agrega ao enfoque pedagógico dos resultados das avaliações em larga escala 
-                        do Inep a possibilidade de resultados sintéticos, facilmente assimiláveis, 
-                        e que permitem traçar metas de qualidade educacional para os sistemas. 
+                        Tabelas ligando diversos códigos institucionais e informações de entidades brasileiras. 
                          """)
 
         with col3:
@@ -110,20 +199,20 @@ def inicio_ideb(ideb_analise):
             st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
                         ">Organização:</h3>",
                         unsafe_allow_html=True)
-            st.markdown("Instituto Nacional de Estudos e Pesquisas Educacionais (Inep)")
+            st.markdown("Base dos Dados")
         with col2:
             st.text("")
         with col3:
             st.markdown("<h3 style='font-size:130%; text-align: left; color: #5B51D8; padding: 0px 0px;'" +
                         ">Cobertura temporal:</h3>",
                         unsafe_allow_html=True)
-            st.markdown("2005 - 2021")
+            st.markdown("1991 - 2010")
 
 
-    elif ideb_analise == "‍🔬 Laboratório":
+    elif municipios_analise == "‍🔬 Laboratório":
         st.warning('Selecione uma Base de Dados acima para começar sua Analise!', icon="⚠️")
 
-    elif ideb_analise == "🔎 Relatórios":
+    elif municipios_analise == "🔎 Relatórios":
 
         st.warning('Selecione uma Base de Dados acima para começar sua Analise!', icon="⚠️")
 
@@ -179,6 +268,15 @@ def agg_tabela(df, use_checkbox):
 
     return selected_rows
 
+def agg_tabela_simpes(df):
+
+    gb = GridOptionsBuilder.from_dataframe(df)
+    gb.configure_pagination(enabled=False)
+    gridoptions = gb.build()
+    df_grid = AgGrid(df, gridOptions=gridoptions, enable_enterprise_modules=True,
+                     update_mode=GridUpdateMode.SELECTION_CHANGED, height=250, width='100%')
+
+    return df_grid
 
 def plot_bolha(df, tipo, varx, vary, varz):
 
@@ -200,9 +298,9 @@ def plot_bolha(df, tipo, varx, vary, varz):
         df_gp = df.groupby(varz).agg('mean').reset_index()
         fig.add_trace(go.Scatter(x=df_gp[varx], y=df_gp[vary], customdata=df_gp[varz],
                                  mode='markers', name='',
-                                 hovertemplate="</br><b>Agrupamento:</b> %{customdata}" +
-                                               "</br><b>Eixo X:</b> %{x:,.0f}" +
-                                               "</br><b>Eixo Y:</b> %{y:,.0f}",
+                                 hovertemplate="</br><b>" + varz + "</b> %{customdata}" +
+                                               "</br><b>" + varx + ":</b> %{x:,.0f}" +
+                                               "</br><b>" + vary + ":</b> %{y:,.0f}",
                                  marker=dict(
                                      size=50,
                                      color=(df_gp[vary] + df_gp[varx] / 2),
@@ -474,4 +572,23 @@ def bolha_rede(df, var1):
 
 
 
+
+
+
+
+def rodape():
+    html_rodpe = """
+    <hr style= "display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      margin-left: auto;
+      margin-right: auto;
+      border-style: inset;
+      border-width: 1.5px;">
+      <p style="color:Gainsboro; text-align: center;">Desenvolvedor: mateus7ortiz@gmail.com</p>
+    """
+    st.markdown(html_rodpe, unsafe_allow_html=True)
+
+
+    return None
 
